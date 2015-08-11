@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+
+    <div id="board"></div>
+
+    <script>
+
+      var allModules = {};
+
+      function getModules() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/feature/all', true);
+        xhr.onload = function() {
+          allModules = JSON.parse(xhr.responseText);
+          drawComponents();
+        };
+        xhr.send();
+      }
+
+      function drawComponents() {
+        document.getElementById('board').innerHTML = '';
+        var elements = document.createElement('ul');
+        allModules.forEach(function(module) {
+          elements.appendChild(drawModuleComponent(module));
+        });
+        document.getElementById('board').appendChild(elements);
+      }
+
+      function changeVersion(module, version) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/feature/'+module+ ':' + version, true)
+        xhr.onload = getModules;
+        xhr.send();
+      }
+
+      function drawModuleComponent(module) {
+        var li = document.createElement('li');
+        var label = document.createElement('h2');
+        label.innerHTML = module.module;
+        li.appendChild(label);
+
+        module.availableVersions.forEach(function(version) {
+          var radioLabel = document.createElement('label');
+          radioLabel.htmlFor = 'radio' + module.module + version;
+          radioLabel.innerHTML = version;
+
+          var radio = document.createElement('input');
+          if (version === module.current) {
+            radio.checked = true;
+          }
+          radio.type = 'radio';
+          radio.id = 'radio' + module.module + version;
+          radio.name = module.module;
+          radio.onclick = function() {
+            console.log('changing version to ' + version);
+            changeVersion(module.module, version);
+          };
+          li.appendChild(radioLabel);
+          li.appendChild(radio);
+        });
+        return li;
+      };
+
+      window.onload = getModules;
+
+    </script>
+  </body>
+</html>
