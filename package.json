@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "feature toggle",
   "main": "dist/main.js",
+  "repository": "git@stash.b2w/bcfrontweb/feature-version.git",
   "scripts": {
     "precompile": "rimraf .compiled && mkdir .compiled",
     "compile": "babel src --out-dir .compiled/src",
