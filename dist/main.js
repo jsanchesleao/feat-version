@@ -8,13 +8,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 
-var _fs = require('fs');
+var _webDashboard = require('./webDashboard');
 
-var _fs2 = _interopRequireDefault(_fs);
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
+var _webDashboard2 = _interopRequireDefault(_webDashboard);
 
 var features = {};
 var versions = {};
@@ -70,12 +66,7 @@ var listModules = function listModules() {
   });
 };
 
-var dashboard = function dashboard(request, response) {
-  response.writeHead(200, { 'Content-Type': 'text/html' });
-  _fs2['default'].createReadStream(_path2['default'].join(__dirname, '..', 'html', 'dashboard.html')).pipe(response);
-};
-
 exports['default'] = {
-  register: register, module: _module, set: set, listModules: listModules, dashboard: dashboard
+  register: register, module: _module, set: set, listModules: listModules, dashboard: _webDashboard2['default']
 };
 module.exports = exports['default'];

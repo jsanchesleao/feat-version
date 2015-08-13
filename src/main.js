@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import dashboard from './webDashboard';
 
 let features = {};
 let versions = {};
@@ -46,10 +45,6 @@ let listModules = function() {
                }));
 }; 
 
-let dashboard = function(request, response) {
-  response.writeHead(200, {'Content-Type': 'text/html'});
-  fs.createReadStream(path.join(__dirname, '..', 'html', 'dashboard.html')).pipe(response);
-};
 
 export default {
   register, module, set, listModules, dashboard
