@@ -23,6 +23,21 @@ describe('feature register', function() {
 
   });
 
+  it('exports a readonly variable to test the current version of a module', function() {
+    feat.register('amodule', {
+      'v0': {prop: 1},
+      'v1': {prop: 1}
+    });
+
+    let amoduleFeat = feat.module('amodule');
+
+    expect(amoduleFeat._version).to.equal('v0');
+
+    feat.set('amodule', 'v1');
+
+    expect(amoduleFeat._version).to.equal('v1');
+  });
+
   it('throws if told to set to a version that does not exist', () => {
 
     feat.register('amodule', {

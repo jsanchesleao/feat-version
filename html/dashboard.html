@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>{{pageTitle}}</title>
   </head>
   <body>
 
@@ -12,7 +13,7 @@
 
       function getModules() {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/feature/all', true);
+        xhr.open('GET', '{{baseUrl}}/feature/all', true);
         xhr.onload = function() {
           allModules = JSON.parse(xhr.responseText);
           drawComponents();
@@ -31,7 +32,7 @@
 
       function changeVersion(module, version) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/feature/'+module+ ':' + version, true)
+        xhr.open('GET', '{{baseUrl}}/feature/'+module+ ':' + version, true)
         xhr.onload = getModules;
         xhr.send();
       }

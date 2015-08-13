@@ -22,9 +22,12 @@ let module = function(name) {
     version = newVersion;
     current = features[name][version];
   });
-  return function() {
-    return current;
-  };
+
+  let ret = () =>current;
+
+  Object.defineProperty(ret, '_version', {get: () => version});
+
+  return ret;
 };
 
 let set = function(name, version) {

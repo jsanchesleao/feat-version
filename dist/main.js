@@ -41,9 +41,16 @@ var _module = function _module(name) {
     version = newVersion;
     current = features[name][version];
   });
-  return function () {
+
+  var ret = function ret() {
     return current;
   };
+
+  Object.defineProperty(ret, '_version', { get: function get() {
+      return version;
+    } });
+
+  return ret;
 };
 
 var set = function set(name, version) {
